@@ -70,5 +70,12 @@ few_fire_df.show()
     .agg(countDistinct("CallType").alias("DistinctCallTypes"))
     .show())
 
-
+# _______________________________________________________
+# List the distinct CallTypes
+# _______________________________________________________
+(fire_df
+    .select("CallType")
+    .where(col("CallType").isNotNull())
+    .distinct()
+    .show(10, False))
 
