@@ -1,5 +1,6 @@
 from pyspark.sql.types import *
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
 
 spark = (SparkSession
         .builder
@@ -49,4 +50,25 @@ fire_df.show()
 # as parquet file
 # parquet_path = ...
 # fire_df.write.format("parquet").save(parquet_path)
+# _______________________________________________________
+# Projections and Filters
+# _______________________________________________________
+few_fire_df = (fire_df
+    .select("IncidentNumber", "AvailableDtTm", "CallType")
+    .where(col("CallType") != "Medical Incident"))
+
+few_fire_df.show(5, truncate=False)
+
+few_fire_df.show()
+
+# _______________________________________________________
+# Find num of distinct CallTypes of fire calls
+# _______________________________________________________
+(fire_df
+    .select("CallType")
+    .where(col("CallType").isNotNull())
+    .agg(countDistinct("CallType").alias("DistinctCallTypes"))
+    .show())
+
+
 
