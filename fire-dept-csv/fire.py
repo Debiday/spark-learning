@@ -40,3 +40,13 @@ sf_fire_file = "./data/sf-fire-calls.csv"
 fire_df = spark.read.csv(sf_fire_file, header=True, schema=fire_schema)
 
 fire_df.show()
+
+# persist the data
+# as table
+# parquet_table = ... # name of the table 
+# fire_df.write.format("parquet").saveAsTable(parquet_table)
+
+# as parquet file
+# parquet_path = ...
+# fire_df.write.format("parquet").save(parquet_path)
+
