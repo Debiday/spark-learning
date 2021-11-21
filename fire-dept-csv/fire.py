@@ -79,3 +79,34 @@ few_fire_df.show()
     .distinct()
     .show(10, False))
 
+# _______________________________________________________
+# Renaming, adding and dropping columns
+# _______________________________________________________
+new_fire_df = fire_df.withColumnRenamed("Delay", "ResponseDelayedinMins")
+(new_fire_df
+    .select("ResponseDelayedinMins")
+    .where(col("ResponseDelayedinMins")>5)
+    .show(5, False))
+
+# _______________________________________________________
+# Changing types to a useable format(e.g. str to datetime)
+# _______________________________________________________
+fire_ts_df = (new_fire_df
+    .withColumn("IncidentDate", to_timestamp(col("CallDate"), "MM/dd/yyyy"))
+    .drop("CallDate")
+    .withColumn("OnWatchDate", to_timestamp(col("WatchDate"), "MM/dd/yyyy"))
+    .drop("WatchDate")
+    .withColumn("AvailableDtTS", to_timestamp(col("AvailableDtTm"), "MM/dd/yyyy hh:mm:ss a"))
+    .drop("AvailableDtTm"))
+
+(fire_ts_df
+    .select("IncidentDate", "OnWatchDate", "AvailableDtTS")
+    .show(5, False))
+
+#after modifying dates, query using sql functions like month(), year() etc. 
+(fire_ts_df
+    .select(year('IncidentDate'))
+    .distinct()
+    .orderBy(year('IncidentDate'))
+    .show())
+
