@@ -110,3 +110,25 @@ fire_ts_df = (new_fire_df
     .orderBy(year('IncidentDate'))
     .show())
 
+# _______________________________________________________
+# Aggregations (what were the most common types of fire calls?)
+# _______________________________________________________
+(fire_ts_df
+    .select("CallType")
+    .where(col("CallType").isNotNull())
+    .groupBy("CallType")
+    .count()
+    .orderBy("count", ascending=False)
+    .show(n=10, truncate=False))
+
+# _______________________________________________________
+# Statistical methods like min(), max(), sum(), avg()
+# _______________________________________________________
+import pyspark.sql.functions as F
+
+(fire_ts_df
+    .select(F.sum("NumAlarms"), F.avg("ResponseDelayedinMins"),
+    F.min("ResponseDelayedinMins"), F.max("ResponseDelayedinMins"))
+    .show())
+
+
