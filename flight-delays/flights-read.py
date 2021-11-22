@@ -27,6 +27,12 @@ from pyspark.sql.functions import col, desc
 
 #all flights with at least 2-hour delay
 spark.sql("""SELECT date, delay, origin, destination FROM us_delay_flights_tbl WHERE delay > 120 AND ORIGIN = 'SFO' AND DESTINATION = 'ORD' ORDER by delay DESC""").show(10)
+#equivalant Data-Frame API query
+(df.select("date", "delay", "origin", "destination")
+    .where(col("delay")>120)
+    .where(col("origin")=='SFO')
+    .where(col("destination") == 'ORD')
+    .orderBy(desc("delay"))).show(100)
 
 #labelling the extent of the delay
 spark.sql("""SELECT delay, origin, destination,
@@ -40,4 +46,4 @@ spark.sql("""SELECT delay, origin, destination,
             END AS Flight_Delays
             FROM us_delay_flights_tbl
             ORDER BY origin, delay DESC""").show(100)
-
+#equivalant Data-Frame API query?
