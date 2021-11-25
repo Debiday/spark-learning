@@ -54,3 +54,11 @@ columns = spark.catalog.listColumns("us_delay_flights_tbl")
 print(databases)
 print(tables)
 print(columns)
+
+#cleansed dataframe
+# In Python
+us_flights_df = spark.sql("SELECT * FROM us_delay_flights_tbl")
+us_flights_df2 = spark.table("us_delay_flights_tbl")
+
+print(us_flights_df)
+us_flights_df.show(20)
