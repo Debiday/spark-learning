@@ -4,6 +4,7 @@ spark = (SparkSession
     .builder
     .appName("SparkSQLFlightApp")
     .getOrCreate())
+    
 
 # csv_file = "./data/departuredelays.csv"
 # schema="date STRING, delay INT, distance INT, origin STRING, destination STRING" 
@@ -27,9 +28,29 @@ df_sfo.createOrReplaceGlobalTempView("us_origin_airport_SFO_global_tmp_view")
 df_jfk.createOrReplaceTempView("us_origin_airport_JFK_tmp_view")
 
 
-
-# df_sfo = spark.sql("SELECT date, delay, origin, destination FROM managed_us_delay_flights_tbl WHERE origin = 'SFO'")
-# # df_jfk = spark.sql("SELECT date, delay, origin, destination FROM us_delay_flights_tbl WHERE origin = 'JFK'")
-
 df_sfo.show(10)
-spark.read.table("us_origin_airport_JFK_tmp_view")
+df_jfk.show(20)
+
+# spark.read.table("us_origin_airport_JFK_tmp_view")
+
+# _______________________________________________________
+# To drop views
+# _______________________________________________________
+# DROP VIEW IF EXISTS us_origin_airport_SFO_global_tmp_view; DROP VIEW IF EXISTS us_origin_airport_JFK_tmp_view
+
+# spark.catalog.dropGlobalTempView("us_origin_airport_SFO_global_tmp_view")
+# spark.catalog.dropTempView("us_origin_airport_JFK_tmp_view")
+
+# Note: Temporary vs. Global view
+# Tied to sible spark session vs. visible across multiple spark sessions
+
+
+# display(spark.catalog.listDatabases())
+databases = spark.catalog.listDatabases()
+tables = spark.catalog.listTables()
+columns = spark.catalog.listColumns("us_delay_flights_tbl")
+# spark.catalog.listTables()
+# spark.catalog.listColumns("us_delay_flights_tbl")
+print(databases)
+print(tables)
+print(columns)
