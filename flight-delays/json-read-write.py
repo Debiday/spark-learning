@@ -30,3 +30,7 @@ spark.sql("SELECT * FROM us_delay_flights_tbl").show()
 # Note: this code snippet from guide does not work?
 
 (df.write.json("../flight-delays/data/json/df_json1"))
+
+
+
+
