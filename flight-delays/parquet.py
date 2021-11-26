@@ -51,3 +51,10 @@ spark.sql("SELECT * FROM us_delay_flights_tbl").show()
         .mode("overwrite")
         .option("compression", "snappy")
         .save("../flight-delays/data/parquet/df_parquet"))
+
+# _______________________________________________________
+# Writing dataframe to Spark SQL table
+# _______________________________________________________
+(df.write
+    .mode("overwrite")
+    .saveAsTable("us_delay_flights_tbl"))
