@@ -1,5 +1,6 @@
+# TODO: Parquet file to DataFrame
 # _______________________________________________________
-# Notes on DataFrameReader
+# Notes on DataFrameReader: Data source >>> dataframe
 # _______________________________________________________
 # DataFrameReader.format(args).option("key", "value").schema(args).load()
 
@@ -20,7 +21,17 @@
 #     // or
 #     DataFrame.writeStream
 
-# file = """/databricks-datasets/learning-spark-v2/flights/summary-data/parquet/
-# 2010-summary.parquet/"""
-# df = spark.read.format("parquet").load(file)
+from pyspark.sql import SparkSession
 
+spark = (SparkSession
+    .builder
+    .appName("SparkSQLFlightApp")
+    .enableHiveSupport()
+    .getOrCreate())
+
+
+file = """../flight-delays/data/parquet/2010-summary.parquet/"""
+df = spark.read.format("parquet").load(file)
+
+# spark.sql("SELECT * FROM us_delay_flights_tbl").show()
+df.show(10)
