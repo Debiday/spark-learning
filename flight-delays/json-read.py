@@ -21,14 +21,16 @@ spark.sql("CREATE OR REPLACE TEMPORARY VIEW us_delay_flights_tbl USING json OPTI
 spark.sql("SELECT * FROM us_delay_flights_tbl").show()
 
 # _______________________________________________________
-# Writing dataframe to Parquet file
+# Writing dataframe to JSON files
 # _______________________________________________________
 # (df.write.format("json")
 #     .mode("overwrite")
 #     .option("compression", "snappy")
 #     .save("../flight-delays/data/json/df_json1"))
-
+# Note: this code snippet from guide does not work?
 
 (df.write.json("../flight-delays/data/json/df_json1"))
+
+
 
 
