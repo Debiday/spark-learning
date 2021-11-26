@@ -1,4 +1,3 @@
-# TODO: Parquet file to DataFrame
 # _______________________________________________________
 # Notes on DataFrameReader: Data source >>> dataframe
 # _______________________________________________________
@@ -21,6 +20,9 @@
 #     // or
 #     DataFrame.writeStream
 
+# _______________________________________________________
+# Reading Parquet files into a Dataframe
+# _______________________________________________________
 from pyspark.sql import SparkSession
 
 spark = (SparkSession
@@ -35,3 +37,17 @@ df = spark.read.format("parquet").load(file)
 
 # spark.sql("SELECT * FROM us_delay_flights_tbl").show()
 df.show(10)
+
+# _______________________________________________________
+# Reading Parquet files into a Spark SQL table (same result)
+# _______________________________________________________
+spark.sql("CREATE OR REPLACE TEMPORARY VIEW us_delay_flights_tbl USING parquet OPTIONS (path '../flight-delays/data/parquet/2010-summary.parquet/')")
+spark.sql("SELECT * FROM us_delay_flights_tbl").show()
+
+# _______________________________________________________
+# Writing dataframe to Parquet file
+# _______________________________________________________
+(df.write.format("parquet")
+        .mode("overwrite")
+        .option("compression", "snappy")
+        .save("../flight-delays/data/parquet/df_parquet"))

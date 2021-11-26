@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 24 21:29:38 PST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-017d-5592-19e3-000004729bb0 
+Fri Nov 26 10:15:51 PST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-017d-5d75-f540-00000510a400 
 on database directory /Users/deborahong/src/spark-learning/flight-delays/metastore_db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@67424e82 
 Loaded from file:/Users/deborahong/Downloads/spark-3.1.2-bin-hadoop3.2/jars/derby-10.12.1.1.jar
 java.vendor=Homebrew
