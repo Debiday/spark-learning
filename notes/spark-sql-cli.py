@@ -10,5 +10,3 @@
 #run query
 # >>> SELECT * FROM people WHERE age < 20;
 # >>> SELECT name FROM people WHERE age IS NULL;
-
-# check warehouse for table
