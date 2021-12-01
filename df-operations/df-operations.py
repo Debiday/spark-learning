@@ -93,4 +93,3 @@ foo3.show()
 # _______________________________________________________
 foo4 = foo3.withColumnRenamed("status", "flight_status")
 foo4.show()
-
